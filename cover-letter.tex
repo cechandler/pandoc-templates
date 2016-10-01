@@ -16,74 +16,37 @@
 \begin{document}
 
 
-	$for(include-before)$
-	$include-before$
-	$endfor$
+$for(include-before)$
+$include-before$
+$endfor$
 
-	$if(toc)$
-	{
-	$if(colorlinks)$
-	\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
-	$endif$
-	\setcounter{tocdepth}{$toc-depth$}
-	\tableofcontents
-	}
-	$endif$
-
-	$if(letterhead)$
-	\begin{textblock}{0}(0,0)
-		$if(letterhead-scale)$\includegraphics[scale=$letterhead-scale$]{$letterhead$}
-		$else$\includegraphics[scale=0.13]{$letterhead$}
-		$endif$
-	\end{textblock}
-	$endif$
+$if(letterhead)$
+\begin{textblock}{0}(0,0)
+$if(letterhead-scale)$\includegraphics[scale=$letterhead-scale$]{$letterhead$}
+$else$\includegraphics[scale=0.13]{$letterhead$}
+$endif$
+\end{textblock}
+$endif$
 
 \begin{letter}{$for(address)$$address$$sep$\\$endfor$}
 
-	$if(date)$
-		\date{$date$}
-	$endif$
+$if(date)$\date{$date$}$endif$
 
-	$if(opening)$
-		\opening{$opening$}
-	$endif$
+$if(opening)$\opening{$opening$}$endif$
 
-	$body$
+$body$
 
-	$if(closing)$
-		% $if(closing-indentation)$
-		% 	\longindentation=$closing-indentation$
-		% $endif$
-		\closing{$closing$}
-	$endif$
+$if(closing)$
+$closing$
+$endif$
 
-	$if(signature)$
-		$if(signature-before)$
-			\vspace*{$signature-before$}
-		$endif$
-		$if(signature-scale)$
-			\includegraphics[scale=$signature-scale$]{$signature$}
-		$else$
-			\includegraphics[scale=0.26]{$signature$}
-		$endif$
-		$if(signature-after)$
-			\vspace*{$signature-after$}
-		$endif$
-		$if(author)$$author$\\$endif$
-		$if(contact)$$for(contact)$$contact$$sep$\\$endfor$$endif$
-	$endif$
-
-	$if(encl)$
-		\encl{$for(encl)$$encl$$sep$\\$endfor$}
-	$endif$
-
-	$if(cc)$
-		\cc{$for(cc)$$cc$$sep$\\$endfor$}
-	$endif$
-
-	$if(ps)$
-		\ps{$ps$}
-	$endif$
+$if(signature)$
+$if(signature-before)$\vspace*{$signature-before$}$endif$
+$if(signature-scale)$\includegraphics[scale=$signature-scale$]{$signature$}$else$\includegraphics[scale=0.20]{$signature$}$endif$
+$if(signature-after)$\vspace*{$signature-after$}$endif$
+$if(author)$$author$$endif$
+$if(contact)$$for(contact)$$contact$$sep$\\$endfor$$endif$
+$endif$
 
 \end{letter}
 
