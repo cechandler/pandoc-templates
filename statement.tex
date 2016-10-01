@@ -1,0 +1,35 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{lipsum}
+
+\setlength{\parindent}{3em}
+\setlength{\parskip}{0.25em}
+
+\newcommand{\HRule}{\rule{\linewidth}{1pt}}
+\def\tightlist{}
+
+\makeatletter% since there's an at-sign (@) in the command name
+
+\renewcommand{\@maketitle}{%
+  \parindent=0pt% don't indent paragraphs in the title block
+  \centering{\Large \bfseries\textsc{\@title}}
+  \par
+  \centering{\large \@author}
+  \par
+  \par
+}
+\makeatother% resets the meaning of the at-sign (@)
+
+\title{$title$}
+\author{$author$}
+
+\begin{document}
+
+\maketitle
+\vspace{1em}
+
+$body$
+
+\end{document}
