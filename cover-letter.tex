@@ -1,8 +1,10 @@
 \documentclass[$if(font-size)$$fontsize$$else$11pt$endif$]{letter}
 \usepackage[paper=letterpaper,top=1in,left=1in,right=1in,bottom=1in]{geometry}
 \usepackage{graphicx,grffile}
+\usepackage{fontspec}
 \newcommand{\mytilde}{\raise.17ex\hbox{$$\scriptstyle\mathtt{\sim}$$}}
 \usepackage[absolute]{textpos}
+\usepackage[percent]{overpic}
 \setlength{\TPHorizModule}{8.5in}
 \setlength{\TPVertModule}{\TPHorizModule}
 \textblockorigin{1in}{1in} % start everything near the top-left corner
@@ -44,8 +46,10 @@ $if(signature)$
 $if(signature-before)$\vspace*{$signature-before$}$endif$
 $if(signature-scale)$\includegraphics[scale=$signature-scale$]{$signature$}$else$\includegraphics[scale=0.20]{$signature$}$endif$
 $if(signature-after)$\vspace*{$signature-after$}$endif$
-$if(author)$$author$$endif$
+$if(author)$$author$$endif$\\
 $if(contact)$$for(contact)$$contact$$sep$\\$endfor$$endif$
+$else$
+$if(author)$$author$$endif$
 $endif$
 
 \end{letter}
