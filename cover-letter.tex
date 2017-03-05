@@ -1,13 +1,45 @@
 \documentclass[$if(font-size)$$fontsize$$else$11pt$endif$]{letter}
 \usepackage[paper=letterpaper,top=1in,left=1in,right=1in,bottom=1in]{geometry}
 \usepackage{graphicx,grffile}
-\usepackage{fontspec}
+% \usepackage{fontspec}
 \newcommand{\mytilde}{\raise.17ex\hbox{$$\scriptstyle\mathtt{\sim}$$}}
 \usepackage[absolute]{textpos}
 \usepackage[percent]{overpic}
 \setlength{\TPHorizModule}{8.5in}
 \setlength{\TPVertModule}{\TPHorizModule}
 \textblockorigin{1in}{1in} % start everything near the top-left corner
+
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+  \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+  \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+  \setmonofont[Mapping=tex-ansi]{$monofont$}
+$endif$
+$if(mathfont)$
+  \setmathfont(Digits,Latin,Greek){$mathfont$}
+$endif$
+\fi
 
 \address{$for(return-address)$$return-address$$sep$\\$endfor$}
 
