@@ -1,7 +1,4 @@
-% ==================================================
-% DOCUMENT SETUP
-% ==================================================
-\documentclass[plain, titleabove]{simplecv}
+\documentclass[$if(fontsize)$$fontsize$$else$12pt$endif$]{article}
 
 \usepackage[utf8]{inputenc} % enables printing of foreign characters (eg. ç, ä, etc)
 
@@ -53,9 +50,9 @@ $endif$
 \fi
 
 % Adjust simplecv default fonts
-\titlefont{\scshape\LARGE}							% title: small caps and large
-\sectionfont{\bfseries\normalsize\MakeUppercase}	% sections: uppercase
-\topiclabelfont{}									% items: unitalicize
+% \titlefont{\scshape\LARGE}							% title: small caps and large
+% \sectionfont{\bfseries\normalsize\MakeUppercase}	% sections: uppercase
+% \topiclabelfont{}									% items: unitalicize
 
 % Adjust title spacings
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
@@ -67,26 +64,23 @@ $endif$
 \usepackage{titlesec}
 \titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
 \titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+\titleformat*{\section}{\centering\bfseries\normalsize\MakeUppercase}
 
 % Format headers and footers
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[CO,C]{\textsc{$author$ -- Curriculum Vitae}} % header text
+\fancyhead[CO,C]{\textsc{$author$ -- $title$}} % header text
 \fancyhead[L,R]{}			% clears LR section listings in the header
 \fancyfoot[C]{\thepage}		% center the page number in the footer
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-% No indent for whole document
-\setlength\parindent{0pt}
-
 % Enumerate package for CV lists
 \usepackage{enumitem}
 \setlist[enumerate]{leftmargin=!,labelwidth=6.5em,align=left,parsep=0em,itemsep=1em}
-\setlist[itemize]{leftmargin=1.10em}
 
 % Make a freaking tilde
-\newcommand{\mytilde}{\raise.17ex\hbox{$$\scriptstyle\mathtt{\sim}\ $$}}
+\newcommand{\mytilde}{\raise.17ex\hbox{$$\scriptstyle\mathtt{\sim}$$}}
 
 % Hack edit to remove pandoc's tightlist error
 \def\tightlist{}
@@ -110,12 +104,13 @@ $endif$
 % ==================================================
 \begin{document}
 \thispagestyle{empty} 		% removes header from first page
+\setcounter{secnumdepth}{0} % no section numbering
 
 \centerline{\Large \textsc{$author$}}
 
-\vspace{1 mm}
-
-\centerline{\normalsize Curriculum Vitae}
+% \vspace{1 mm}
+%
+% \centerline{\normalsize Curriculum Vitae}
 
 \vspace{2 mm}
 
@@ -123,7 +118,7 @@ $endif$
 
 \vspace{2 mm}
 
-\moveleft.5\hoffset\centerline{$position$ · $university$}
+\moveleft.5\hoffset\centerline{Visiting Instructor · University of Richmond}
 \moveleft.5\hoffset\centerline{$for(workaddress)$$workaddress$$sep$ · $endfor$}
 \moveleft.5\hoffset\centerline{
 	\emph{E-mail:} \href{mailto:}{\tt $if(email)$$email$$else$chris.chandler@richmond.edu$endif$}
@@ -131,7 +126,6 @@ $endif$
 	\emph{Phone:} $if(phone)$$phone$$else$912-257-5409$endif$}
 \moveleft.5\hoffset\centerline{
 	\emph{Web:} $if(website)$\href{$website$}{\tt $website$}$else$\href{http://christopherchandlermusic.com}{\tt christopherchandlermusic.com}$endif$}
-% \moveleft.5\hoffset\centerline{\emph{Date of Birth:} February 23, 1986}
 
 \vspace{2 mm}
 
@@ -140,6 +134,8 @@ $endif$
 $for(include-before)$
 	$include-before$
 $endfor$
+
+\section{$title$}
 
 $body$
 
