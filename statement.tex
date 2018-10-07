@@ -1,35 +1,127 @@
-\documentclass[$if(fontsize)$$fontsize$$else$12pt$endif$]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[margin=1in]{geometry}
-\usepackage{lipsum}
+% ==================================================
+% DOCUMENT SETUP
+% ==================================================
+\documentclass[plain, titleabove, $if(font-size)$$fontsize$$else$11pt$endif$]{simplecv}
 
-\setlength{\parindent}{3em}
-\setlength{\parskip}{0.25em}
+\usepackage[utf8]{inputenc} % enables printing of foreign characters (eg. ç, ä, etc)
 
-\newcommand{\HRule}{\rule{\linewidth}{1pt}}
+\usepackage[
+	$if(papersize)$paper=$papersize$paper,$else$paper=letterpaper,$endif$
+	$if(margin)$margin=$margin$,$else$margin=1in,$endif$
+	% top=0.9in, bottom=0.75in
+	% $if(geometry)$$geometry$$endif$
+]{geometry}
+
+$if(fontfamily)$
+\usepackage{$fontfamily$}
+$else$
+\usepackage{lmodern}
+$endif$
+$if(linestretch)$
+\usepackage{setspace}
+\setstretch{$linestretch$}
+$endif$
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+  \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+  \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+  \setmonofont[Mapping=tex-ansi]{$monofont$}
+$endif$
+$if(mathfont)$
+  \setmathfont(Digits,Latin,Greek){$mathfont$}
+$endif$
+\fi
+
+% Adjust simplecv default fonts
+\titlefont{\scshape\LARGE}							% title: small caps and large
+\sectionfont{\bfseries\normalsize\MakeUppercase}	% sections: uppercase
+\topiclabelfont{}									% items: unitalicize
+
+% Format headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[CO,C]{\textsc{$author$ -- $title$}} % header text
+\fancyfoot[C]{\thepage}		% center the page number in the footer
+
+% No indent for whole document
+\setlength\parindent{$if(parindent)$$parindent$$else$3em$endif$}
+\setlength{\parskip}{$if(parskip)$$parskip$$else$1em$endif$}
+
+% Hack edit to remove pandoc's tightlist error
 \def\tightlist{}
 
-\makeatletter% since there's an at-sign (@) in the command name
+\usepackage{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 
-\renewcommand{\@maketitle}{%
-  \parindent=0pt% don't indent paragraphs in the title block
-  \centering{\Large \bfseries\textsc{\@title}}
-  \par
-  \centering{\normalsize \@author}
-  \par
-  \par
-}
-\makeatother% resets the meaning of the at-sign (@)
+\hypersetup{
+	unicode=true,
+	colorlinks=true,
+	linkcolor=Maroon,
+	citecolor=Blue,
+	urlcolor=$if(url-color)$$url-color$$else$Blue$endif$,
+	breaklinks=true,
+	bookmarks=true
+	}
+\urlstyle{same}  % don't use monospace font for urls
 
-\title{$title$}
-\author{$author$}
-
+% ==================================================
+% DOCUMENT BEGINS
+% ==================================================
 \begin{document}
+\thispagestyle{empty} 		% removes header from first page
 
-\maketitle
-\vspace{1em}
+$if(noheader)$
+\centerline{\Large \textsc{$author$}}
+\centerline{\textsc{$title$}}
+\vspace{$if(parskip)$$parskip$$else$0.75em$endif$}
+$else$
+\centerline{\Large \textsc{$author$}}
+\centerline{\textsc{$title$}}
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+\moveleft.5\hoffset\centerline{$position$ · $university$}
+$if(workaddress)$\moveleft.5\hoffset\centerline{$for(workaddress)$$workaddress$$sep$ · $endfor$}$endif$
+\moveleft.5\hoffset\centerline{
+\emph{E-mail:} \href{mailto:}{\tt $if(email)$$email$$else$chris.chandler@richmond.edu$endif$}
+\hspace{0.5em}
+\emph{Phone:} $if(phone)$$phone$$else$912-257-5409$endif$}
+\moveleft.5\hoffset\centerline{
+\emph{Web:} $if(website)$\href{$website$}{\tt $website$}$else$\href{http://christopherchandlermusic.com}{\tt christopherchandlermusic.com}$endif$}
+\vspace{0.5em}
+\hrule
+\vspace{0.5em}
+$endif$
+
+$for(include-before)$
+	$include-before$
+$endfor$
 
 $body$
+
+$for(include-after)$
+	$include-after$
+$endfor$
 
 \end{document}

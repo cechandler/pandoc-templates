@@ -232,16 +232,16 @@ $include-before$
 $endfor$
 
 \begin{minipage}[t]{0.45\textwidth}
-  \emph{Instructor}: $instructor$\\
-  \emph{Email}: $email$\\
-  \emph{Office}: $office$\\
-  \emph{Phone}: $phone$
+  $if(instructor)$\emph{Instructor}: $instructor$\\$endif$
+  $if(email)$\emph{Email}: $email$\\$endif$
+  $if(office)$\emph{Office}: $office$\\$endif$
+  $if(phone)$\emph{Phone}: $phone$$endif$
 \end{minipage}
 \hspace{0.05in}
 \begin{minipage}[t]{0.5\textwidth}
-  \emph{Location}: $classroom$\\
-  \emph{Sections}: $for(meeting-time)$$meeting-time$$sep$, $endfor$\\
-  \emph{Office Hours}: $for(office-hours)$$office-hours$$sep$, $endfor$
+  $if(classroom)$\emph{Location}: $classroom$\\$endif$
+  $if(meeting-time)$\emph{Sections}: $for(meeting-time)$$meeting-time$$sep$, $endfor$\\$endif$
+  $if(office-hours)$\emph{Office Hours}: $for(office-hours)$$office-hours$$sep$, $endfor$$endif$
 \end{minipage}
 \vspace{0.5em}
 

@@ -71,18 +71,18 @@ $endif$
 % Format headers and footers
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[CO,C]{\textsc{$author$ -- Curriculum Vitae}} % header text
+\fancyhead[CO,C]{\textsc{$author$}} % header text
 \fancyhead[L,R]{}			% clears LR section listings in the header
 \fancyfoot[C]{\thepage}		% center the page number in the footer
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
+\usepackage{enumitem}
+
 % No indent for whole document
 \setlength\parindent{0pt}
-
-% Enumerate package for CV lists
-\usepackage{enumitem}
-\setlist[enumerate]{leftmargin=!,labelwidth=6.5em,align=left,parsep=0em,itemsep=1em}
+\setlength{\parskip}{$if(parskip)$$parskip$$else$0.5em$endif$}%
+\setlist{itemsep=0pt}
 
 % Make a freaking tilde
 \newcommand{\mytilde}{\raise.17ex\hbox{$$\scriptstyle\mathtt{\sim}$$}}
@@ -98,7 +98,7 @@ $endif$
 	colorlinks=true,
 	linkcolor=Maroon,
 	citecolor=Blue,
-	urlcolor=Blue,
+	urlcolor=$if(url-color)$$url-color$$else$Blue$endif$,
 	breaklinks=true,
 	bookmarks=true
 	}
@@ -110,25 +110,28 @@ $endif$
 \begin{document}
 \thispagestyle{empty} 		% removes header from first page
 
+$if(noheader)$
+$if(author)$\centerline{\Large \textsc{$author$}}$endif$
+$if(title)$\centerline{\textsc{$title$}}$endif$
+\vspace{$if(parskip)$$parskip$$else$0.75em$endif$}
+$else$
 \centerline{\Large \textsc{$author$}}
-
-\vspace{2 mm}
-
+$if(title)$\centerline{\textsc{$title$}}$endif$
+\vspace{0.5em}
 \hrule
-
-\vspace{2 mm}
-
-\moveleft.5\hoffset\centerline{$position$ · $university$}
-\moveleft.5\hoffset\centerline{$for(workaddress)$$workaddress$$sep$ · $endfor$}
+\vspace{0.5em}
+$if(position)$\moveleft.5\hoffset\centerline{$position$ · $university$}$endif$
+$if(workaddress)$\moveleft.5\hoffset\centerline{$for(workaddress)$$workaddress$$sep$ · $endfor$}$endif$
 \moveleft.5\hoffset\centerline{
-	\emph{E-mail:} \href{mailto:}{\tt $if(email)$$email$$else$chris.chandler@richmond.edu$endif$}
-	\hspace{1 mm}
-	\emph{Phone:} $if(phone)$$phone$$else$912-257-5409$endif$}
+\emph{E-mail:} \href{mailto:}{\tt $if(email)$$email$$else$chris.chandler@richmond.edu$endif$}
+\hspace{0.5em}
+\emph{Phone:} $if(phone)$$phone$$else$912-257-5409$endif$}
 \moveleft.5\hoffset\centerline{
-	\emph{Web:} $if(website)$\href{$website$}{\tt $website$}$else$\href{http://christopherchandlermusic.com}{\tt christopherchandlermusic.com}$endif$}
-\vspace{2 mm}
-
+\emph{Web:} $if(website)$\href{$website$}{\tt $website$}$else$\href{http://christopherchandlermusic.com}{\tt christopherchandlermusic.com}$endif$}
+\vspace{0.5em}
 \hrule
+\vspace{0.5em}
+$endif$
 
 $for(include-before)$
 	$include-before$
